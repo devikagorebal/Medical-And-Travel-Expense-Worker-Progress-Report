@@ -70,7 +70,6 @@ Build a responsive and interactive user interface
 
 
 📸 Screenshots
-screenshots of:
 
 Medical & Travel Expense Form
 <img width="1347" height="595" alt="Screenshot 2026-07-28 131328" src="https://github.com/user-attachments/assets/d688d62e-e780-4cf8-9524-3baefca1351e" />
@@ -82,15 +81,10 @@ Medical & Travel Expense Form
 🔮 Future Improvements
 
 Backend integration
-
 PDF export
-
 Form validation
-
 Database connectivity
-
 User authentication
-
 Print optimization
 
 👩‍💻 Author
