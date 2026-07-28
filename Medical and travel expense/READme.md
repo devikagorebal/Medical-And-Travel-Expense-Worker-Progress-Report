@@ -44,39 +44,42 @@ Pug Template Engine (Browser Version)
 
 📂 Project Structure:
 
-Medical-And-Travel-Expense/
+## Project structure
 
-│── assets/
-
-│── css/
-
-│   └── style.css
-
-│── js/
-
-│   └── script.js
-
-│── templates/
-
-│   └── template.pug
-
-│── index.html
-
-└── README.md
-
+```
+wcb-expense-report/
+├── index.html              Entry point — loads pug.js, then app scripts
+├── css/
+│   └── style.css           Screen UI + A4 print rules
+├── js/
+│   ├── data.js              Two simulated "backend" datasets
+│   ├── pug-renderer.js       Fetches + compiles the .pug template
+│   └── app.js                 Wires up dataset switcher & print button
+├── templates/
+│   └── expense-form.pug    Single template, built from reusable mixins
+└── assets/
+    └── wcb-logo.jpeg        Letterhead logo
+```
 
 
 🚀 How to Run:
 
-Clone the repository.
+## Why a local server is needed (not Node — just static file serving)
 
-git clone https://github.com/your-username/Medical-And-Travel-Expense.git
+`pug-renderer.js` uses `fetch()` to load `templates/expense-form.pug` as
+text before compiling it. Browsers block `fetch()` against `file://` paths
+for security (CORS), so double-clicking `index.html` won't load the
+template. Serve the folder with any static file server, e.g.:
 
-Open the project folder.
+```bash
+# Python (already on most systems, not Node)
+cd wcb-expense-report
+python3 -m http.server 8080
+```
 
-Launch index.html in your browser.
-
-Use the Switch Dataset button to view different sample records.
+Then open `http://localhost:8080`. Any other static server (VS Code "Live
+Server" extension, `php -S`, etc.) works identically — none of these are
+Node/npm build steps, they're just serving static files.
 
 
 
