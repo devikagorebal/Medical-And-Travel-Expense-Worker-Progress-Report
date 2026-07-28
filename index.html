@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCB Manitoba — Form</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/print.css" />
+</head>
+<body>
+
+  <!-- Form toolbar -->
+  <div class="app-toolbar">
+    <strong>WCB Manitoba — Worker Progress Report</strong>
+
+    <div class="group">
+      <label for="dataset-select">Datasets</label>
+      <select id="dataset-select">
+        <option value="A">Dataset A</option>
+        <option value="B">Dataset B</option>
+      </select>
+    </div>
+
+    <button id="print-btn" class="primary">Print / Save as PDF</button>
+  </div>
+
+  <!-- Form pages are inserted here -->
+  <div class="app-stage" id="app-stage"></div>
+
+  <!-- Hidden container for page sizing -->
+  <div id="measure-host" style="position:absolute; left:-99999px; top:0; visibility:hidden;"></div>
+
+  <!-- Compiled templates -->
+  <script src="build/templates.compiled.js"></script>
+  <!-- Simulated backend data -->
+  <script src="js/data.js"></script>
+  <!-- App logic: render + paginate + toolbar wiring -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
