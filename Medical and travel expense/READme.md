@@ -1,134 +1,204 @@
-Medical and Travel Expense Request:
+# WCB Medical & Travel Expense Request — Pug/HTML/CSS/JS
 
-A responsive web application that recreates the WCB Medical & Travel Expense Request form using HTML, CSS, JavaScript, and Pug. The project is completely client-side and demonstrates dynamic template rendering with multiple datasets to simulate backend data.
+Assignment 2 build. Pure client side: **HTML, CSS, JavaScript, and Pug — no Node.js
+and no build tooling.** The application renders a **WCB Medical & Travel Expense Request**
+form using **Pug templates**, styled with CSS and populated with simulated backend data.
+Everything runs in the browser without a database or server-side rendering.
 
+---
 
+## Project Structure
 
-📌 Project Overview:
-
-This application reproduces the Medical & Travel Expense Request form while maintaining a clean, responsive, and user-friendly interface. The form is rendered using Pug templates, styled with CSS, and populated using JavaScript. Two different datasets are included to simulate data received from a backend server, allowing users to switch between records during the demo.
-
-
-
-✨ Features:
-
-Responsive design for desktop, tablet, and mobile devices
-
-Dynamic rendering using Pug templates
-
-Pure client-side implementation (no database or backend)
-
-Two sample datasets to simulate backend responses
-
-Dataset switching for demonstration purposes
-
-Organized layout matching the provided PDF form
-
-Clean and reusable HTML, CSS, JavaScript, and Pug structure
-
-Professional UI with print-friendly formatting
-
-
-
-🛠️ Technologies Used:
-
-HTML5
-
-CSS3
-
-JavaScript (ES6)
-
-Pug Template Engine (Browser Version)
-
-
-
-📂 Project Structure:
-
-## Project structure
-
-```
-wcb-expense-report/
-├── index.html              Entry point — loads pug.js, then app scripts
+```text
+wcb-medical-travel-expense/
+├── index.html                 Entry point
 ├── css/
-│   └── style.css           Screen UI + A4 print rules
+│   └── style.css              Screen styling + A4 print rules
 ├── js/
-│   ├── data.js              Two simulated "backend" datasets
-│   ├── pug-renderer.js       Fetches + compiles the .pug template
-│   └── app.js                 Wires up dataset switcher & print button
+│   ├── data.js                Two simulated backend datasets
+│   ├── pug-renderer.js        Loads and compiles the Pug template
+│   └── app.js                 Handles dataset switching and rendering
 ├── templates/
-│   └── expense-form.pug    Single template, built from reusable mixins
-└── assets/
-    └── wcb-logo.jpeg        Letterhead logo
+│   └── expense-form.pug       Main Pug template built using reusable mixins
+├── assets/
+│   └── wcb-logo.jpeg          WCB logo
+└── README.md
 ```
 
+---
 
-🚀 How to Run:
+## Running the Project
 
-## Why a local server is needed (not Node — just static file serving)
+This project is completely client-side. Since the Pug template is loaded using
+`fetch()`, browsers block loading local files (`file://`) for security reasons.
 
-`pug-renderer.js` uses `fetch()` to load `templates/expense-form.pug` as
-text before compiling it. Browsers block `fetch()` against `file://` paths
-for security (CORS), so double-clicking `index.html` won't load the
-template. Serve the folder with any static file server, e.g.:
+Run the project using any simple static server.
+
+### Python
 
 ```bash
-# Python (already on most systems, not Node)
-cd wcb-expense-report
+cd wcb-medical-travel-expense
 python3 -m http.server 8080
 ```
 
-Then open `http://localhost:8080`. Any other static server (VS Code "Live
-Server" extension, `php -S`, etc.) works identically — none of these are
-Node/npm build steps, they're just serving static files.
+Open your browser and visit:
 
+```
+http://localhost:8080
+```
 
+You can also use:
 
+- VS Code Live Server
+- PHP Built-in Server (`php -S localhost:8080`)
+- Any other static file server
 
+No **Node.js**, **npm install**, or build tools are required to run the project.
 
-📋 Assignment Objectives:
+---
 
-Render the page using Pug Templates
+## Assignment Requirements
 
-Match the provided PDF layout
+### ✔ Pug Template Rendering
 
-Simulate backend data using multiple datasets
+The Medical & Travel Expense Request form is rendered using the reusable Pug
+template located in:
 
-Demonstrate dynamic template rendering
+```
+templates/expense-form.pug
+```
 
-Build a responsive and interactive user interface
+The template is compiled in the browser using **pug.js**, allowing the project
+to remain entirely client-side.
 
+---
 
+### ✔ Matches the Supplied PDF
 
+The interface recreates the provided WCB Medical & Travel Expense Request form,
+including sections such as:
 
+- Prescription Drugs
+- Over-the-Counter Drugs
+- Medical Supplies
+- Parking Expenses
+- Mileage
+- Bus / Taxi Fare
 
-📸 Screenshots:
+The layout, typography, colors, tables, and branding closely resemble the
+official WCB document while remaining responsive across different screen sizes.
 
-Medical & Travel Expense Form
+---
+
+### ✔ Simulated Backend Data
+
+The application includes two sample datasets stored in:
+
+```
+js/data.js
+```
+
+These datasets simulate backend responses and populate the form automatically.
+
+Users can switch between the datasets using the toolbar without entering any
+data manually.
+
+---
+
+### ✔ Print-Ready A4 Layout
+
+The form is optimized for printing.
+
+Features include:
+
+- A4 page size
+- Repeating header and footer
+- Proper table pagination
+- Clean page breaks
+- Print-friendly formatting
+
+Use the **Print / Save as PDF** button or press **Ctrl + P** (Windows) /
+**Cmd + P** (Mac) and choose **Save as PDF**.
+
+---
+
+## Code Reusability
+
+The project is designed using reusable components.
+
+### Reusable Pug Mixins
+
+The template uses generic mixins for rendering different expense sections,
+allowing new sections to be added with minimal changes.
+
+### Shared Components
+
+- Letterhead
+- Footer
+- Expense Tables
+- Section Headers
+
+can all be reused in future WCB forms.
+
+### Generic Renderer
+
+`PugRenderer` is template-independent.
+
+Any `.pug` template can be loaded, compiled, cached, and rendered without
+modifying the renderer itself.
+
+---
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Pug Template Engine (Browser Version)
+
+---
+
+## Features
+
+- Responsive layout
+- Client-side rendering
+- Dynamic Pug templates
+- Multiple datasets
+- Backend data simulation
+- Professional WCB-inspired interface
+- Print-ready A4 formatting
+- Reusable modular code
+- Clean project structure
+
+---
+
+## Screenshots
+
+### Medical & Travel Expense Request Form
+
 <img width="1347" height="595" alt="Screenshot 2026-07-28 131328" src="https://github.com/user-attachments/assets/d688d62e-e780-4cf8-9524-3baefca1351e" />
 <img width="1343" height="593" alt="Screenshot 2026-07-28 131605" src="https://github.com/user-attachments/assets/fb84176b-9423-4b8f-bc7e-7d34f5de7a12" />
 <img width="1343" height="592" alt="Screenshot 2026-07-28 131619" src="https://github.com/user-attachments/assets/473b308c-c08e-4314-87f2-b31b0155ddf2" />
 <img width="1366" height="768" alt="Screenshot 2026-07-28 131629" src="https://github.com/user-attachments/assets/1a121ee7-7601-44aa-8a9d-30752cb2d18f" />
 
 
+## Future Improvements
 
-🔮 Future Improvements:
+- Backend integration
+- Database connectivity
+- Form validation
+- PDF export
+- User authentication
+- Digital signatures
+- Accessibility improvements
 
-Backend integration
+---
 
-PDF export
+## Author
 
-Form validation
+**G Devika**
 
-Database connectivity
-
-User authentication
-
-Print optimization
-
-
-👩‍💻 Author
-    
-G Devika
+---
 
 Demo Video:---
 https://drive.google.com/file/d/1qGjyiFipO4Ux7CQO5ZokP46_8nIjuV6w/view?usp=drive_link
