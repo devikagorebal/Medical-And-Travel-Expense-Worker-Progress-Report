@@ -83,6 +83,8 @@ Node/npm build steps, they're just serving static files.
 
 
 
+
+
 📋 Assignment Objectives:
 
 Render the page using Pug Templates
@@ -94,6 +96,8 @@ Simulate backend data using multiple datasets
 Demonstrate dynamic template rendering
 
 Build a responsive and interactive user interface
+
+
 
 
 
