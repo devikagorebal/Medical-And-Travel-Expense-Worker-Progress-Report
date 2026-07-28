@@ -1,76 +1,150 @@
-# WCB Manitoba — Form Prototypes (Assignment 2)
+- **Worker Progress Report**
 
-Pug-templated, print-ready recreations of two WCB Manitoba forms:
-**Worker Progress Report** and **Medical & Travel Expense Request**.
 
-## How to run it
+Built using **HTML, CSS, JavaScript, and Pug** with a responsive interface, simulated backend datasets, and A4 print support.
 
-Just open `index.html` in a browser. No Node, no npm install, no server,
-no build step required to view or demo it.
+---
 
-- **Form** dropdown switches between the two forms.
-- **Simulated data** dropdown switches between two backend-style datasets
-  (A/B) per form — nothing is typed on screen, everything is bound from
-  `js/data.js`, standing in for data "coming from the backend."
-- **Print / Save as PDF** prints the current form onto real A4 pages.
+## How to Run
 
-## Why Pug, but no Node needed to run it
+Open `index.html` in any modern web browser.
 
-Pug's own template engine normally needs Node to compile. To satisfy both
-"use Pug" and "don't use Node" for the deliverable itself, the `.pug`
-files in `templates/` are the real source of truth, and `build.js`
-(a small Node script, **build-time only**) precompiles them into
-`build/templates.compiled.js` — plain, dependency-free JS functions with
-zero runtime dependency on Node or the Pug library. `index.html` loads
-that compiled file directly with a `<script>` tag.
+No **Node.js**, **npm install**, server setup, or build tools are required to **view or demonstrate** the project.
 
-If you edit any `.pug` file, re-run:
+### Features
 
-```
+- **Form** dropdown switches between the two WCB forms.
+- **Dataset** dropdown switches between two simulated backend datasets (A/B) for each form.
+- All form data is loaded from **`js/data.js`**—nothing is entered manually.
+- **Print / Save as PDF** generates an A4-formatted version of the selected form.
+
+---
+
+## Why Pug, but No Node Required
+
+The project uses **Pug templates** for clean, reusable markup.
+
+During development, the `.pug` templates are precompiled into JavaScript so the browser can render them directly without requiring the Pug runtime or Node.js.
+
+The browser loads the compiled templates, making the final project completely client-side.
+
+If you modify any `.pug` template, simply rebuild the compiled templates (development only):
+
+```bash
 node build.js
 ```
 
-(only needed if you have Node installed and want to change the templates —
-not needed to just view or demo the project).
+This step is only required if you are editing the templates. It is **not required** to run or demonstrate the project.
 
-## Structure
+---
 
+## Project Structure
+
+```text
+WCB-Manitoba-Forms/
+
+├── index.html                     Entry point
+├── templates/
+│   ├── mixins.pug                 Shared reusable Pug components
+│   ├── worker-progress-report.pug
+│   ├── medical-travel-expense.pug
+│   └── footer.pug                 Footer template
+│
+├── build/
+│   └── templates.compiled.js      Precompiled browser templates
+│
+├── css/
+│   ├── styles.css                 Shared UI styling
+│   └── print.css                  A4 print styling
+│
+├── js/
+│   ├── data.js                    Simulated backend datasets
+│   └── app.js                     Form rendering and dataset switching
+│
+├── assets/
+│   └── wcb-logo.png               WCB logo
+│
+├── build.js                       Template compilation script
+└── README.md
 ```
-index.html                 entry point
-templates/
-  mixins.pug                shared building blocks (checkboxes, boxed
-                             sections, fill-in lines, rating scale, data
-                             table, header) — reused by BOTH forms
-  worker-progress-report.pug
-  medical-travel-expense.pug   *placeholder — see note below*
-  footer.pug                 footer, rendered per computed page
-build.js                     Node build script (dev-time only)
-build/templates.compiled.js  compiled output actually used by the browser
-css/
-  styles.css                 shared visual styling for both forms
-  print.css                  A4 pagination / print-only rules
-js/
-  data.js                    two simulated datasets per form
-  app.js                     form/dataset switching + dynamic pagination
-assets/
-  wcb-logo.png                logo used in the form header
-```
 
-## Pagination / footer placement
+---
 
-`js/app.js` renders the full form off-screen, measures the real height of
-every section (and, for the expense table, every row), and only then
-splits the content into A4-sized page `<div>`s — inserting the footer
-(via `footer.pug`) at wherever the content actually ends on each page.
-This is why a short dataset produces fewer pages than a long one, and why
-a 2-row expense table vs. a 12-row expense table land the footer in
-different places, automatically.
+## Assignment Requirements
 
-## Known gap
+✔ Render forms using **Pug templates**
 
-`medical-travel-expense.pug` is a **placeholder** built from the general
-WCB expense-claim pattern (traveller info, a line-item expense table,
-totals, payment method, certification) — I don't yet have the actual
-Medical & Travel Expense Request PDF to replicate exactly. Swap in the
-real field list once that PDF is available; the mixins/header/footer/
-pagination plumbing underneath won't need to change.
+✔ Match the supplied WCB PDF layouts
+
+✔ Simulate backend data using multiple datasets
+
+✔ Allow live switching between datasets
+
+✔ Generate print-ready A4 documents
+
+✔ Build reusable templates using Pug mixins
+
+✔ Create a responsive, user-friendly interface
+
+---
+
+## Code Reusability
+
+The application follows a modular design.
+
+- Shared **Pug mixins** are reused by both forms.
+- Common headers, footers, tables, checkboxes, and layout components are centralized.
+- Form rendering logic is handled by reusable JavaScript modules.
+- Both forms use the same styling and print layout, reducing duplicated code.
+
+---
+
+## Pagination & Printing
+
+The application automatically prepares content for **A4 printing**.
+
+Before printing, JavaScript measures the rendered content and organizes it into properly sized pages. Headers and footers are positioned automatically, ensuring professional print output regardless of the amount of data displayed.
+
+Use the **Print / Save as PDF** button or press **Ctrl + P** (Windows) / **Cmd + P** (Mac) to generate the PDF.
+
+---
+
+## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Pug Template Engine
+
+---
+
+## Screenshots
+
+### Worker Progress Report
+
+<img width="1348" height="594" alt="Screenshot 2026-07-28 133610" src="https://github.com/user-attachments/assets/d76c1f3a-524c-4407-935b-4e5a6f2a7fc0" />
+<img width="1146" height="601" alt="Screenshot 2026-07-28 133623" src="https://github.com/user-attachments/assets/e55930cc-96e5-4dd5-ba96-603a61e70946" />
+<img width="1343" height="596" alt="Screenshot 2026-07-28 133642" src="https://github.com/user-attachments/assets/35b6691f-1384-4d08-bcc6-c3d805dd8530" />
+<img width="1348" height="593" alt="Screenshot 2026-07-28 133657" src="https://github.com/user-attachments/assets/e8f68b3f-1c34-42b9-abba-9b31387c699a" />
+<img width="1366" height="768" alt="Screenshot 2026-07-28 133722" src="https://github.com/user-attachments/assets/f73e2d88-0c77-4057-87da-57b122a01ab6" />
+
+
+## Future Improvements
+
+- Backend integration
+- API connectivity
+- Database support
+- User authentication
+- Form validation
+- PDF export enhancements
+- Digital signatures
+- Accessibility improvements
+
+---
+
+## Author
+
+**G Devika**
+
+---
+##Demo Video:--https://drive.google.com/file/d/19CqMr7wzFCbOG_FebUFDBIh8lMJQHSey/view?usp=drive_link
