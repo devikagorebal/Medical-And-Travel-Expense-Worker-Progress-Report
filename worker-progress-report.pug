@@ -1,0 +1,98 @@
+//- Worker progress report template.
+//- The content comes from the data object.
+include mixins
+
+.wcb-form#worker-progress-report
+  +formHeader('Worker Progress Report', data.claimNo, 'WP')
+
+  p.statement
+    strong= data.workerName
+    |  provided the following updates in relation to their claim:
+
+  //- Return to work section.
+  section.form-section
+    +sectionHeading('Return to Work')
+
+    +optionBox('Select one:', [
+      { label: 'I have not missed time from work', checked: data.returnToWork.status === 'notMissed' },
+      { label: 'I have not returned to work', checked: data.returnToWork.status === 'notReturned' },
+      { label: 'I returned to work on:', checked: data.returnToWork.status === 'returnedOn', trailingValue: data.returnToWork.status === 'returnedOn' ? data.returnToWork.returnDate : '' }
+    ])
+
+    +optionBox('I am working:', [
+      { label: 'Full duties, regular hours', checked: data.workType.key === 'fullRegular' },
+      { label: 'Full duties, reduced hours', checked: data.workType.key === 'fullReduced' },
+      { label: 'Modified duties, regular hours', checked: data.workType.key === 'modifiedRegular' },
+      { label: 'Modified duties, reduced hours', checked: data.workType.key === 'modifiedReduced' },
+      { label: 'Other:', checked: data.workType.key === 'other', trailingValue: data.workType.key === 'other' ? data.workType.otherText : '' }
+    ])
+
+    +textBox('My return to work is going:', data.returnGoingComment)
+
+    +fillLine('I expect to return to work on:', data.expectedReturnDate, 'Date')
+
+    +textBox('I have the following concerns about returning to work:', data.returnConcerns)
+
+    +fillLinePair('I was most recently in contact with:',
+      { value: data.recentContact.name, label: '(Name of employer contact)' },
+      { value: data.recentContact.date, label: 'Date' })
+
+  //- Recovery section.
+  section.form-section
+    +sectionHeading('Recovery')
+
+    +optionBox('Select one:', [
+      { label: 'I have not fully recovered from my workplace injury.', checked: data.recovery.status === 'notRecovered' },
+      { label: 'I have fully recovered from my workplace injury.', checked: data.recovery.status === 'recovered' }
+    ])
+
+    +textBox('I have provided the following comments about my recovery:', data.recovery.comments)
+
+  //- Footer and page layout are handled by the app script.
+
+  //- Pain, treatment, and medication section.
+  section.form-section
+    +ratingScale('I rate my current pain/discomfort on a scale of 1-10,<br>where 1 is no pain and 10 is severe pain out of 10.', data.pain)
+
+    +optionBox('Select one:', [
+      { label: 'I am not continuing to receive medical treatment for my workplace injury.', checked: data.medicalTreatment.status === 'not' },
+      { label: 'I am continuing to receive medical treatment for my workplace injury from:', checked: data.medicalTreatment.status === 'continuing', trailingValue: data.medicalTreatment.status === 'continuing' ? data.medicalTreatment.providerType : '' }
+    ])
+
+    .two-col
+      +fillLinePair('My last medical treatment was from',
+        { value: data.medicalTreatment.last.date, label: 'Date' },
+        { value: data.medicalTreatment.last.name, label: 'Medical Provider Name', joiner: 'from' })
+      +fillLinePair('My next medical treatment is from',
+        { value: data.medicalTreatment.next.date, label: 'Date' },
+        { value: data.medicalTreatment.next.name, label: 'Medical Provider Name', joiner: 'from' })
+
+    +fillLine('I am attending a Chiropractor or Physiotherapist', data.medicalTreatment.frequency, 'Frequency')
+
+    +optionBox('Select one:', [
+      { label: 'I am not taking medication for my workplace injury.', checked: data.medication.status === 'not' },
+      { label: 'I am taking medication for my workplace injury:', checked: data.medication.status === 'taking', trailingValue: data.medication.status === 'taking' ? data.medication.name : '' }
+    ])
+
+    +optionBox('Select one:', [
+      { label: 'I am not doing home exercises for my workplace injury.', checked: data.homeExercises.status === 'not' },
+      { label: 'I am doing home exercises for my workplace injury.', checked: data.homeExercises.status === 'doing' }
+    ])
+
+    +textBox('List the exercises you are doing:', data.homeExercises.list)
+
+  section.form-section
+    +sectionHeading('Other Information')
+    +textBox('I would like to provide the following additional information about my claim/injury:', data.otherInfo)
+
+  //- Certification section.
+  section.form-section
+    p.certification.
+      I certify that the information given on this form is true, correct and complete to the best of my
+      knowledge. I agree to notify the Workers Compensation Board of Manitoba (WCB) immediately once I
+      return to any form of work and/or employment. I understand that it is an offence to knowingly make
+      a false statement to the WCB. I also understand that it is an offence to withhold information from
+      WCB which affects my entitlement to compensation (e.g., full or partial recovery from injury, ability to
+      return to work, sources of additional income, etc.). I understand that refusing to co-operate with, or
+      follow my treatment, may result in the WCB reducing or suspending my benefits.
+    p.certification I understand that the Privacy Notice applies to the personal information collected in this document.

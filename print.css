@@ -1,0 +1,50 @@
+.wcb-page {
+  height: 297mm;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.wcb-page .form-footer {
+  margin-top: auto; 
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .app-toolbar {
+    display: none;
+  }
+
+  .app-stage {
+    padding: 0;
+    gap: 0;
+    display: block;
+  }
+
+  .wcb-page {
+    box-shadow: none;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .wcb-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+  .option-box,
+  .text-box,
+  .rating-scale,
+  tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

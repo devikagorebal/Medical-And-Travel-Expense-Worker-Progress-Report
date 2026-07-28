@@ -1,0 +1,101 @@
+//- Shared mixins used by both forms.
+//- Keep the layout and repeated form parts in one place.
+
+//- Page header with the logo, address, title, and claim details
+mixin formHeader(formTitle, claimNo, formCode)
+  header.form-header
+    .header-left
+      img.logo(src="assets/wcb-logo.png" alt="Workers Compensation Board of Manitoba")
+      .address
+        span 333 Broadway
+        span Winnipeg, MB R3C 4W3
+        span Phone: (204) 954-4321
+        span Toll Free: 1-855-954-4321
+        span wcb.mb.ca
+    .header-right
+      h1.form-title= formTitle
+      .id-boxes
+        .id-box
+          span.id-label Claim No.
+          span.id-value= claimNo
+        .id-box.code-box= formCode
+
+//- Footer shown on each page.
+mixin formFooter(appId, submitted, pageNum, totalPages)
+  footer.form-footer
+    span.app-id Worker App ID: #{appId}
+    .footer-right
+      span.submitted Submitted: #{submitted}
+      span.page-count Page #{pageNum} of #{totalPages}
+
+//- A bordered option box.
+mixin optionBox(caption, options)
+  .option-box
+    if caption
+      .option-caption= caption
+    .option-row
+      each opt in options
+        .option
+          span.checkbox(class=opt.checked ? 'checked' : '')
+            if opt.checked
+              | ✓
+          span.option-label
+            = opt.label
+            if opt.trailingValue
+              span.inline-fill= opt.trailingValue
+
+//- A bordered text box.
+mixin textBox(label, value)
+  .text-box(class=!value ? 'empty' : '')
+    .text-box-label= label
+    if value
+      .text-box-value= value
+
+//- A single fill-in line.
+mixin fillLine(label, value, sublabel)
+  .fill-line
+    span.fill-label= label
+    span.fill-value(class=!value ? 'empty' : '')= value || ''
+    if sublabel
+      span.fill-sublabel= sublabel
+
+//- Two fill-in lines shown together.
+mixin fillLinePair(prefix, part1, part2)
+  .fill-line-pair
+    span.fill-prefix= prefix
+    .fill-part
+      span.fill-value(class=!part1.value ? 'empty' : '')= part1.value || ''
+      span.fill-sublabel= part1.label
+    span.fill-joiner= part2.joiner || 'on'
+    .fill-part
+      span.fill-value(class=!part2.value ? 'empty' : '')= part2.value || ''
+      span.fill-sublabel= part2.label
+
+//- Section heading.
+mixin sectionHeading(text)
+  h2.section-heading= text
+
+//- Simple 1–10 rating scale.
+mixin ratingScale(label, selected)
+  .rating-scale
+    .rating-label!= label
+    .rating-rows
+      .rating-row
+        each n in [1,2,3,4,5]
+          span.rating-cell(class=n === selected ? 'selected' : '')= n
+      .rating-row
+        each n in [6,7,8,9,10]
+          span.rating-cell(class=n === selected ? 'selected' : '')= n
+
+//- Simple data table for line items.
+mixin dataTable(columns, rows)
+  table.data-table
+    thead
+      tr
+        each col in columns
+          th= col
+    tbody
+      each row in rows
+        tr
+          each cell, i in row
+            td(class=columns[i] && columns[i].toLowerCase().includes('amount') ? 'num' : '')= cell
