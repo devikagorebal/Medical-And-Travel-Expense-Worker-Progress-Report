@@ -31,14 +31,23 @@ Pug Template Engine (Browser Version)
 📂 Project Structure
 
 Medical-And-Travel-Expense/
+
 │── assets/
+
 │── css/
+
 │   └── style.css
+
 │── js/
+
 │   └── script.js
+
 │── templates/
+
 │   └── template.pug
+
 │── index.html
+
 └── README.md
 
 
