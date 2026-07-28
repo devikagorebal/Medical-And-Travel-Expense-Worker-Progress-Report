@@ -1,0 +1,102 @@
+//- Expense form template
+//- Letterhead mixin
+mixin letterhead(logo, address, formTitle, claimNo)
+  .letterhead
+    .letterhead__brand
+      img.letterhead__logo(src=logo alt="WCB - Workers Compensation Board of Manitoba")
+    .letterhead__address
+      p= address.line1
+      p= address.cityProvPostal
+      p Phone: #{address.phone}
+      p Toll Free: #{address.tollFree}
+      p= address.website
+    .letterhead__title
+      h1= formTitle
+      .claim-box
+        span Claim No.
+        strong= claimNo
+
+//- Footer mixin
+mixin pageFooter(appId, submitted)
+  .page-footer
+    span.page-footer__left Worker App ID: #{appId || ''}
+    span.page-footer__right Submitted: #{submitted}
+
+//- Reusable table section mixin
+mixin sectionTable(title, columns, rows, note)
+  section.form-section(class=rows.length === 0 ? 'is-empty' : '')
+    h2.form-section__title= title
+    if note
+      p.form-section__note!= note
+    if rows && rows.length
+      table.data-table
+        thead
+          tr
+            each col in columns
+              th= col.label
+        tbody
+          each row in rows
+            tr
+              each col in columns
+                td= (row[col.key] === undefined || row[col.key] === '' || row[col.key] === null) ? '—' : row[col.key]
+    else
+      p.form-section__empty No entries submitted for this section.
+
+//- Intro line mixin
+mixin introLine(workerName)
+  p.intro-line
+    strong= workerName
+    |  requested reimbursement for the following medical and/or travel expenses:
+
+//- Privacy notice mixin
+mixin privacyNotice(privacyUrl)
+  .privacy-notice
+    span.privacy-notice__check ✓
+    span.privacy-notice__text
+      | I understand that the
+      a.privacy-link(href=privacyUrl || '#') Privacy Notice
+      |  applies to the personal information collected in this document.
+
+//- Main document layout
+.document#wcb-document
+  table.doc-table
+    thead
+      tr
+        td
+          +letterhead(data.logo, data.address, data.formTitle, data.claimNo)
+    tfoot
+      tr
+        td
+          +pageFooter(data.workerAppId, data.submitted)
+    tbody
+      tr
+        td
+          +introLine(data.workerName)
+
+      tr
+        td
+          +sectionTable('Prescription Drugs', data.columns.prescriptionDrugs, data.sections.prescriptionDrugs)
+
+      tr
+        td
+          +sectionTable('Over-the-Counter Drugs', data.columns.otcDrugs, data.sections.otcDrugs)
+
+      tr
+        td
+          +sectionTable('Bandages, Braces or Other Medical Supplies', data.columns.medicalSupplies, data.sections.medicalSupplies)
+
+      tr
+        td
+          +sectionTable('Parking for Medical Appointments', data.columns.parking, data.sections.parking)
+
+      tr
+        td
+          +sectionTable('Mileage to Medical Appointments', data.columns.mileage, data.sections.mileage, 'The WCB will generally reimburse only those transportation costs which are in excess of costs that would be incurred by the worker while travelling to and from work.')
+
+      tr
+        td
+          +sectionTable('Bus or Taxi Fare for Medical Appointments *', data.columns.busTaxi, data.sections.busTaxi, '*Note: Pre-approval is required from your WCB representative to claim taxi fare(s).')
+
+      tr
+        td
+          +privacyNotice(data.privacyUrl)
