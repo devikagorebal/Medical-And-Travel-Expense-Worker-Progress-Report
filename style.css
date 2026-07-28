@@ -1,0 +1,258 @@
+ /* WCB Medical & Travel Expense Request */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1a1a1a;
+  background: #e9edf2;
+}
+
+/* Toolbar styles */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1.25rem;
+  background: #16304f;
+  color: #fff;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.toolbar__title {
+  font-weight: 700;
+  margin-right: auto;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.toolbar label {
+  font-size: 0.85rem;
+}
+
+.toolbar select {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.toolbar button {
+  background: #fff;
+  color: #16304f;
+  border: none;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.toolbar button:hover { background: #dce6f0; }
+
+#status {
+  font-size: 0.78rem;
+  color: #cdd8e6;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.status--error { color: #ffb3b3 !important; }
+
+.document-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.document {
+  width: 210mm;               /* A4 width */
+  min-height: 297mm;          /* A4 height, visual guide on screen */
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  padding: 12mm 12mm 18mm;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.doc-table > tbody > tr > td { padding: 0; }
+
+.letterhead {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.25rem;
+  align-items: start;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #1f3f6b;
+  margin-bottom: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.letterhead__logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+.letterhead__address {
+  font-size: 0.72rem;
+  color: #555;
+  line-height: 1.35;
+}
+.letterhead__address p { margin: 0; }
+
+.letterhead__title { text-align: right; }
+.letterhead__title h1 {
+  font-size: 1.05rem;
+  color: #1f3f6b;
+  margin: 0 0 0.4rem;
+}
+
+.claim-box {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  border: 1.5px solid #333;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.78rem;
+}
+.claim-box span { color: #555; }
+.claim-box strong { color: #1a1a1a; }
+
+.intro-line {
+  font-size: 0.92rem;
+  margin: 0 0 1.1rem;
+}
+
+.form-section {
+  margin-bottom: 1.2rem;
+  break-inside: avoid-page;
+}
+
+.form-section__title {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.95rem;
+  color: #16304f;
+  margin: 0 0 0.4rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 0.2rem;
+}
+
+.form-section__note {
+  font-size: 0.78rem;
+  color: #555;
+  margin: 0 0 0.4rem;
+}
+
+.form-section__empty {
+  font-size: 0.8rem;
+  color: #555;
+  font-style: italic;
+  margin: 0;
+  padding: 0.4rem 0.1rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #333;
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table thead th {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: 700;
+  background: #eef2f7;
+}
+
+.data-table tbody tr:nth-child(even) { background: #f5f7fa; }
+
+.privacy-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  border-top: 1px solid #ccc;
+  padding-top: 0.75rem;
+  margin-top: 1.5rem;
+  font-size: 0.82rem;
+}
+
+.privacy-notice__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #333;
+  color: #1f3f6b;
+  font-size: 0.7rem;
+  flex: none;
+}
+
+.privacy-link {
+  color: #1f3f6b;
+  text-decoration: underline;
+}
+
+.page-footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 0.72rem;
+  color: #555;
+  border-top: 1px solid #ccc;
+  padding-top: 0.4rem;
+  margin-top: 1rem;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm 16mm;
+  }
+
+  .toolbar,
+  .document-wrapper { all: unset; }
+
+  body {
+    background: #fff;
+  }
+
+  .toolbar { display: none !important; }
+
+  .document-wrapper {
+    display: block;
+    padding: 0;
+  }
+
+  .document {
+    width: auto;
+    min-height: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  /* Reprint the thead/tfoot on every page the table spans */
+  .doc-table thead { display: table-header-group; }
+  .doc-table tfoot { display: table-footer-group; }
+
+  .letterhead { margin-bottom: 0.6rem; }
+
+  .form-section { break-inside: avoid-page; }
+  .data-table thead { display: table-header-group; }
+  .data-table tr { break-inside: avoid; }
+
+  a { color: inherit; text-decoration: none; }
+}
