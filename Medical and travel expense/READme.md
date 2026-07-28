@@ -1,80 +1,68 @@
-# WCB Medical & Travel Expense Request — Pug/HTML/CSS/JS
+Medical and Travel Expense Request
 
-<!-- Simple client-side expense form demo -->
-Assignment 2 build. Pure client side: **HTML, CSS, JS and Pug — no Node.js
-and no build tooling.** Pug is compiled at runtime in the browser using the
-`pug.js` browser bundle (loaded from CDN in `index.html`); there is no
-`npm install`, no `pug-cli`, and no server-side rendering step.
+A responsive web application that recreates the WCB Medical & Travel Expense Request form using HTML, CSS, JavaScript, and Pug. The project is completely client-side and demonstrates dynamic template rendering with multiple datasets to simulate backend data.
 
-## Project structure
+📌 Project Overview
 
-```
-wcb-expense-report/
-├── index.html              Entry point — loads pug.js, then app scripts
-├── css/
-│   └── style.css           Screen UI + A4 print rules
-├── js/
-│   ├── data.js              Two simulated "backend" datasets
-│   ├── pug-renderer.js       Fetches + compiles the .pug template
-│   └── app.js                 Wires up dataset switcher & print button
-├── templates/
-│   └── expense-form.pug    Single template, built from reusable mixins
-└── assets/
-    └── wcb-logo.jpeg        Letterhead logo
-```
+This application reproduces the Medical & Travel Expense Request form while maintaining a clean, responsive, and user-friendly interface. The form is rendered using Pug templates, styled with CSS, and populated using JavaScript. Two different datasets are included to simulate data received from a backend server, allowing users to switch between records during the demo.
 
-## Why a local server is needed (not Node — just static file serving)
+✨ Features
+Responsive design for desktop, tablet, and mobile devices
+Dynamic rendering using Pug templates
+Pure client-side implementation (no database or backend)
+Two sample datasets to simulate backend responses
+Dataset switching for demonstration purposes
+Organized layout matching the provided PDF form
+Clean and reusable HTML, CSS, JavaScript, and Pug structure
+Professional UI with print-friendly formatting
 
-`pug-renderer.js` uses `fetch()` to load `templates/expense-form.pug` as
-text before compiling it. Browsers block `fetch()` against `file://` paths
-for security (CORS), so double-clicking `index.html` won't load the
-template. Serve the folder with any static file server, e.g.:
+🛠️ Technologies Used
+HTML5
+CSS3
+JavaScript (ES6)
+Pug Template Engine (Browser Version)
 
-```bash
-# Python (already on most systems, not Node)
-cd wcb-expense-report
-python3 -m http.server 8080
-```
+📂 Project Structure
+Medical-And-Travel-Expense/
+│── assets/
+│── css/
+│   └── style.css
+│── js/
+│   └── script.js
+│── templates/
+│   └── template.pug
+│── index.html
+└── README.md
 
-Then open `http://localhost:8080`. Any other static server (VS Code "Live
-Server" extension, `php -S`, etc.) works identically — none of these are
-Node/npm build steps, they're just serving static files.
+🚀 How to Run
+Clone the repository.
+git clone https://github.com/your-username/Medical-And-Travel-Expense.git
+Open the project folder.
+Launch index.html in your browser.
+Use the Switch Dataset button to view different sample records.
 
-## Requirement checklist
+📋 Assignment Objectives
+Render the page using Pug Templates
+Match the provided PDF layout
+Simulate backend data using multiple datasets
+Demonstrate dynamic template rendering
+Build a responsive and interactive user interface
+📸 Screenshots
 
-1. **Pug template rendering** — `templates/expense-form.pug`, compiled
-   client-side via `pug.compile()`.
-2. **Mimics the supplied PDF** — same sections, field labels, and order
-   (Prescription Drugs, OTC Drugs, Medical Supplies, Parking, Mileage,
-   Bus/Taxi Fare), styled to match the WCB letterhead and blue branding.
-3. **Simulated backend data, no on-screen entry** — `js/data.js` exports
-   `DATASET_1` (mirrors the sample PDF, Claim 20042047) and `DATASET_2` (a
-   second claim with different row counts, including an intentionally
-   empty section). The toolbar dropdown switches between them live,
-   re-rendering through the same Pug template/mixins — nothing is typed in.
-4. **Print to A4 PDF with correct footer placement regardless of data
-   size** — the whole document is wrapped in one outer `<table>`
-   (`.doc-table`) whose `<thead>` is the letterhead and `<tfoot>` is the
-   page footer. Browsers natively repeat a table's `thead`/`tfoot` on
-   *every physical page* the table's rows spill onto when printed. That
-   means the footer always sits at the bottom of each page, and the
-   letterhead always repeats at the top, however many rows either dataset
-   produces — no manual page-height math needed. `@page { size: A4; }`
-   plus `break-inside: avoid-page` on each section keeps tables from
-   splitting mid-row where possible.
-   Use the **Print / Save as PDF** button (or Ctrl/Cmd+P) → destination
-   "Save as PDF".
+Add screenshots of:
 
-## Code modularity / reuse
+Medical & Travel Expense Form
+<img width="1347" height="595" alt="Screenshot 2026-07-28 131328" src="https://github.com/user-attachments/assets/d688d62e-e780-4cf8-9524-3baefca1351e" />
 
-- `+sectionTable(title, columns, rows, note)` is one generic mixin reused
-  for all six tables in the form (and by any future form — column
-  definitions live in `data.js` per section, not hardcoded in the
-  template).
-- `+letterhead(...)` and `+pageFooter(...)` are standalone mixins, so a
-  second form (e.g. a different WCB document) can reuse the same
-  letterhead/footer chrome by importing this template and calling the
-  mixins with different data.
-- `PugRenderer` is a tiny, template-agnostic module — pass it any `.pug`
-  file path and it will compile/cache it, so it isn't tied to this one
-  form.
+Dataset 1
+Dataset 2
+Mobile Responsive View
+🔮 Future Improvements
+Backend integration
+PDF export
+Form validation
+Database connectivity
+User authentication
+Print optimization
+👩‍💻 Author
+    G Devika
